@@ -4,7 +4,21 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" ></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.23/b-1.6.5/b-colvis-1.6.5/b-html5-1.6.5/datatables.min.css"/>
+ 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.23/b-1.6.5/b-colvis-1.6.5/b-html5-1.6.5/datatables.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Unica+One&display=swap" rel="stylesheet">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/xrange.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <!-- Add link to Bootstrap CDN below: -->
@@ -16,6 +30,13 @@
     <div class='jumbotron'>
         <h1>Hi It's George</h1>
     </div>
+    <div class='container'>
+        <div class='row'>
+            <div class='col-8'>
+                <table id="myTable" class="display compact" width="90%"></table>
+            </div>
+        </div>
+</div>
 
     <table id="myTable" class="display compact" width="90%"></table>
 
@@ -33,13 +54,14 @@
               
               line.push(data.feed.entry[i]['gsx$plntname']['$t']);
               line.push(data.feed.entry[i]['gsx$dist']['$t']);
+              line.push(data.feed.entry[i]['gsx$rad']['$t']);
               line.push(data.feed.entry[i]['gsx$j']['$t']);
               line.push(data.feed.entry[i]['gsx$h']['$t']);
               line.push(data.feed.entry[i]['gsx$k']['$t']);
-              line.push(data.feed.entry[i]['gsx$36']['$t']);
-              line.push(data.feed.entry[i]['gsx$45']['$t']);
-              line.push(data.feed.entry[i]['gsx$58']['$t']);
-              line.push(data.feed.entry[i]['gsx$8']['$t']);
+              line.push(data.feed.entry[i]['gsx$_d88ul']['$t']);
+              line.push(data.feed.entry[i]['gsx$_dmair']['$t']);
+              line.push(data.feed.entry[i]['gsx$_dp3nl']['$t']);
+              line.push(data.feed.entry[i]['gsx$_dgo93']['$t']);
               line.push(data.feed.entry[i]['gsx$fluxratiow']['$t']);
               line.push(data.feed.entry[i]['gsx$rad']['$t']);
               
@@ -58,41 +80,39 @@ var table = $('#myTable').DataTable({
               ],
             data: dataSet,
             columns: [{
-                title: "Priority"
+                title: "Planet Host"
               },
               {
-                title: "Date"
+                title: "Distance"
               },
               {
-                title: "Status"
+                title: "Radius (Rj)"
               },
               {
-                title: "ID"
+                title: "J"
               },
               {
-                title: "UCAC4"
+                title: "H"
               },
               {
-                title: "Event start (UTC)"
+                title: "K"
               },
               {
-                title: "Event mid (UTC)"
+                title: "3.6"
               },
               {
-                title: "Event end (UTC)"
+                title: "4.5"
               },
               {
-                title: "Obs Start (UTC)"
+                title: "5.8"
               },
               {
-                title: "Obs End (UTC)"
+                title: "8.0"
               },
               {
-                title: "Program"
+                title: "W"
               },
-              {
-                title: "Comments"
-              },
+            
 
             ],
             lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
