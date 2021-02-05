@@ -255,26 +255,30 @@ $(document).ready(function(){
         color: 'rgba(248, 214, 83, 0.4)',
         data: transit[0],
         stacking: true,
-        marker: {radius: 8}
+        marker: {radius: 8,
+        symbol: 'circle'}
 
     }, {
         name: 'Radial Velocity',
         color: 'rgba(132, 83, 248, 0.5)',
         data: rad_vel[0],
         stacking: true,
-        marker: {radius: 8}
+        marker: {radius: 8,
+        symbol: 'square'}
     }, {
         name: 'Direct Imaging',
         color: 'rgba(248, 83, 117, 0.6)',
         data: dir_img[0],
         stacking: true,
-        marker: {radius: 8}
+        marker: {radius: 8,
+        symbol: 'triangle'}
     }, {
         name: 'Other',
         color: 'rgba(248, 132, 83, 0.5)',
         data: other[0],
         stacking: true,
-        marker: {radius: 8}
+        marker: {radius: 8,
+        symbol: 'diamond'}
     }]
 
 
