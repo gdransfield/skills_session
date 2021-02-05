@@ -11,10 +11,10 @@ h1{
     font-size: 4rem;
 }
 
-a {
+li {
     text-decoration: none;
 }
-a:hover {
+li:hover {
     background-color: #EAA7A3;
 }
 
