@@ -26,9 +26,23 @@
     <div class='jumbotron'>
         <h1>Hi It's George</h1>
     </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+    
+            </div>
+        </div>
+        <div class="row">
+            <div class=col>
+                <p>We could show a static plot produced in Python...</p>
+                <img src="/skills_session/resources/mca_discovery_method.pdf">
+            </div>
+        </div>
+    </div>
     <div class='container'>
         <div class='row'>
             <div class='col'>
+                <p>...Or we could produce an interactive plot using Highcharts</p>
                 <div id="container">
     <figure class="highcharts-figure">
         
@@ -41,6 +55,7 @@
     </div>
 </div>
 
+
     <script>
 
 
@@ -48,13 +63,13 @@
 $(document).ready(function(){
   
     var rad_vel = []
-    var rad_vel_n = []
+    //var rad_vel_n = []
     var transit=[]
     var dir_img=[]
     var other = []
-    var transit_n=[]
-    var dir_img_n=[]
-    var other_n = []
+    //var transit_n=[]
+    //var dir_img_n=[]
+    //var other_n = []
     var all = []
     var sheet_url = "https://spreadsheets.google.com/feeds/list/1mcnaf0blZVmenTVJQe1EfEBi5mCIfloLLgfEKZZjc3A/oe9pn16/public/values?alt=json" //url of Google Sheet containing scheduled objects
     $.getJSON(sheet_url, function(data) {
