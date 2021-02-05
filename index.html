@@ -4,9 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/xrange.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
     <!-- Add link to Bootstrap CDN below: -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <title>Skills Session</title>
@@ -14,13 +19,254 @@
 
 <body>
     <ul class='nav'>
-        <li><a class='nav-link' href='skills_session'>HOME</a></li>
-        <li><a class='nav-link' href='skills_session/cmd.html'>Colour-Magnitude Diagrams</a></li>
+        <li><a class='nav-link' href='/skills_session'>HOME</a></li>
+        <li><a class='nav-link' href='/skills_session/cmd.html'>Colour-Magnitude Diagrams</a></li>
         
     </ul>
     <div class='jumbotron'>
         <h1>Hi It's George</h1>
     </div>
+    <div class='container'>
+        <div class='row'>
+            <div class='col'>
+                <div id="container">
+    <figure class="highcharts-figure">
+        
+        <p class="highcharts-description">
+            
+        </p>
+    </figure>
+</div>
+</div>
+    </div>
+</div>
+
+    <script>
+
+
+
+$(document).ready(function(){
+  
+    var rad_vel = []
+    var rad_vel_n = []
+    var transit=[]
+    var dir_img=[]
+    var other = []
+    var transit_n=[]
+    var dir_img_n=[]
+    var other_n = []
+    var all = []
+    var sheet_url = "https://spreadsheets.google.com/feeds/list/1mcnaf0blZVmenTVJQe1EfEBi5mCIfloLLgfEKZZjc3A/oe9pn16/public/values?alt=json" //url of Google Sheet containing scheduled objects
+    $.getJSON(sheet_url, function(data) {
+
+      var i;
+      var sheetData = data.feed.entry;
+    
+      for (i = 0; i < sheetData.length; i++) {
+        var point = {
+            x: parseFloat(data.feed.entry[i]['gsx$plorbsmax']['$t']) ,
+            y: parseFloat(data.feed.entry[i]['gsx$plbmasse']['$t']),
+            name: data.feed.entry[i]['gsx$plname']['$t'],
+            description:  data.feed.entry[i]['gsx$discoverymethod']['$t'],
+        }
+        all.push(point)
+        //var point=[parseFloat(data.feed.entry[i]['gsx$plorbsmax']['$t']) , parseFloat(data.feed.entry[i]['gsx$plbmasse']['$t'])]
+        var discmeth=data.feed.entry[i]['gsx$discoverymethod']['$t']
+        //var name=data.feed.entry[i]['gsx$plname']['$t']
+        if (discmeth=='Radial Velocity'){
+            point.marker= {
+                symbol: 'square',
+                fillcolor: 'rgba(132, 83, 248, 0.5)',
+                radius: 8,
+                linecolor: 'rgb(0, 0, 0)'
+            }
+            point.color='rgba(132, 83, 248, 0.5)'
+            rad_vel.push(point)
+            //rad_vel_n.push(name)
+        } else if (discmeth=='Transit'){
+            point.marker= {
+                symbol: 'circle',
+                fill: 'rgba(248, 214, 83, 0.4)',
+                
+                radius: 7
+            }
+            point.color= 'rgba(248, 214, 83, 0.2)'
+            transit.push(point)
+            //transit_n.push(name)
+        } else if (discmeth=='Imaging'){
+            point.marker= {
+                symbol: 'triangle',
+                fillcolor: 'rgba(248, 83, 117, 0.6)',
+                radius: 8
+            }
+            point.color= 'rgba(248, 83, 117, 0.6)'
+            dir_img.push(point)
+            //dir_img_n.push(name)
+        } else {
+            point.marker= {
+                symbol: 'diamond',
+                fillcolor: 'rgba(248, 132, 83, 0.5)',
+                radius: 8
+            }
+            point.color= 'rgba(248, 132, 83, 0.5)'
+            other.push(point)
+            //other_n.push(name)
+        }
+       
+      }
+    
+      
+    
+      Highcharts.chart('container', {
+    chart: 
+   
+    {
+        backgroundColor: '#545355',
+        type: 'scatter',
+        zoomType: 'xy',
+        height: '80%',
+        width:1000
+    },
+    title: {
+        text: 'Known Exoplanets',
+        style: {
+            color: 'white',
+            fontSize: '30px'
+        }
+    },
+    subtitle: {
+        text: 'NASA Exoplanet Archive',
+        style: {
+            color: '#F5F4F6',
+            fontSize: '20px'
+        }
+    },
+    xAxis: {
+        title: {
+            enabled: true,
+            text: 'Semi-major Axis (AU)',
+            
+            style: {
+                color: 'white',
+                fontSize: '20px'
+            }
+        
+        },
+        startOnTick: true,
+        endOnTick: true,
+        showLastLabel: true,
+        type: 'logarithmic',
+        lineColor: 'white',
+        tickColor: 'white',
+        labels: {
+            style: {
+                color: 'white',
+                fontSize: '15px'
+            }
+        }
+    },
+    yAxis: {
+        title: {
+            text: 'Earth Masses',
+            style: {
+                color: 'white',
+                fontSize: '20px'
+            }
+        },
+        type: 'logarithmic',
+        lineColor: 'white',
+        labels: {
+            style: {
+                color: 'white',
+                fontSize: '15px'
+            }
+        }
+        
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'left',
+        verticalAlign: 'top',
+        x: 100,
+        y: 70,
+        floating: true,
+        backgroundColor: Highcharts.defaultOptions.chart.backgroundColor,
+        borderWidth: 1
+    },
+    plotOptions: {
+        scatter: {
+            marker: {
+                radius: 5,
+                /*states: {
+                    hover: {
+                        enabled: true,
+                        lineColor: 'rgb(100,100,100)'
+                    }
+                }*/
+            },
+            states: {
+                hover: {
+                    marker: {
+                        enabled: false
+                    }
+                }
+            },
+            tooltip: {
+                enabled: true,
+                headerFormat: '<b>{series.description}</b><br>',
+                pointFormat: 'Planet: {point.name}, {point.x} AU, {point.y} Earth Masses'
+            }
+        },
+        series: {
+            stickyTracking: false,
+        turboThreshold: 5000,
+        stacking: true,
+        }
+    },
+    series: [{
+        data: all,
+        showInLegend: false
+        
+    },
+    
+     {
+        name: 'Transit',
+        color: 'rgba(248, 214, 83, 0.4)',
+        data: transit[0],
+        stacking: true,
+        marker: {radius: 8}
+
+    }, {
+        name: 'Radial Velocity',
+        color: 'rgba(132, 83, 248, 0.5)',
+        data: rad_vel[0],
+        stacking: true,
+        marker: {radius: 8}
+    }, {
+        name: 'Direct Imaging',
+        color: 'rgba(248, 83, 117, 0.6)',
+        data: dir_img[0],
+        stacking: true,
+        marker: {radius: 8}
+    }, {
+        name: 'Other',
+        color: 'rgba(248, 132, 83, 0.5)',
+        data: other[0],
+        stacking: true,
+        marker: {radius: 8}
+    }]
+
+
+
+      });
+    
+    });
+    
+    
+    });
+
+    </script>
+
 
 </body>
 
