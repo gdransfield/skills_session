@@ -2,5 +2,11 @@
     background-image: url('/skills_session/resources/background.png');
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: center;
 
+}
+
+h1{
+    font-family: 'Major Mono Display';
+    font-size: 4rem;
 }
