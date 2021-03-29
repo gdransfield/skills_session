@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" ></script>
+    <script src="/skills_session/resources/js/jquery-serialize.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -30,7 +31,7 @@
         
     </ul>
     <div class='jumbotron'>
-        <h1 style="font-family: Major Mono Display; font-size: 4rem; font-weight: 900;">hi it's george</h1>
+        <h1 style="font-family: Major Mono Display; font-size: 4rem; font-weight: 900;">hi, it's george</h1>
     </div>
     <div class="row justify-content-center">
         <div class="col-10 ">
@@ -90,8 +91,49 @@
               <span class="sr-only">Next</span>
             </a>
           </div>
+          <form id="acronym_form">
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Name</label>
+              <input type="text" class="form-control" id="name" placeholder="Your name here" style="width: 60%;" name="Name">
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Email address</label>
+              <input type="email" class="form-control" id="email" placeholder="name@example.com" style="width: 60%;" name="Email">
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Acronym</label>
+              <input type="text" class="form-control" id="acronym" placeholder="What should I call my program?" style="width: 60%;" name="Acronym">
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label">Meaning</label>
+              <textarea class="form-control" id="meaning" rows="3" placeholder="Now tell me what it means" style="width: 60%;" name='Meaning'></textarea>
+            </div>
+            <div class="mb-3">
+              <button id="acronym_button" type="submit" class="btn btn-primary mb-3">Submit!</button>
+            </div>
+          </form>
         </div>
       </div>
+      <script>
+        
+
+        var $form = $('form#acronym_form'),
+        url='https://script.google.com/macros/s/AKfycbzMJl3913tI3VgNOmS4gv7sailGsUf4g4cTpzuhw6Rpl8hgquSrhMij0qpU8QUzeLmr/exec'
+
+      $('#acronym_button').on('click', function(e) {
+        e.preventDefault();
+        var jqxhr = $.ajax({
+          url: url,
+          method: "GET",
+          dataType: "json",
+          data: $form.serializeObject()
+        }).success(
+          alert("Submitted! Feel free to submit another :)")
+        );
+      })
+      </script>
+
+
 <div class='container' style="padding-top: 60px;">
     <div class='row fixed-bottom justify-content-center'>
         <h3 style='font-family: Major Mono Display; font-size: 2rem; font-weight: 700; background-color: #EAA7A3;'>thanks for stopping by!</h3>
