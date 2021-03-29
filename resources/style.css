@@ -1,8 +1,8 @@
 .jumbotron {
-    background-image: url('/skills_session/resources/background.png');
+    background-image: url('skills_session/resources/background2.png');
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: center right;
 
 }
 
